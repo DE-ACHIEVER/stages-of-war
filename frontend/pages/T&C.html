@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Terms & Conditions - STAGES OF WAR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../image/favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        /* Dark/Light Theme Variables */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #475569;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .last-updated {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Acknowledgment Banner */
+        .acknowledgment {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 48px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .acknowledgment p {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .acknowledgment small {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* FAQ Categories */
+        .faq-category {
+            margin-bottom: 32px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .category-header {
+            background: var(--bg-secondary);
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .category-header:hover {
+            background: var(--bg-primary);
+        }
+
+        .category-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-header.open .category-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Items Container */
+        .category-items {
+            display: none;
+            padding: 0 24px 24px 24px;
+        }
+
+        .category-items.open {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Individual Content Items */
+        .content-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .content-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .item-title:hover {
+            color: var(--primary);
+        }
+
+        .item-title .expand-icon {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .item-title.open .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .item-content {
+            display: none;
+            padding: 16px 0 8px 20px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            border-left: 2px solid var(--primary);
+            margin-top: 8px;
+        }
+
+        .item-content.open {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* List Styles */
+        .styled-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .styled-list li {
+            padding: 6px 0;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .styled-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .numbered-list {
+            padding-left: 25px;
+        }
+
+        .numbered-list li {
+            padding: 5px 0;
+        }
+
+        .sub-list {
+            padding-left: 30px;
+            list-style: circle;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .contact-box h3 {
+            color: var(--primary-light);
+            margin-bottom: 16px;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .contact-details span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .category-header h2 {
+                font-size: 18px;
+            }
+            
+            .item-title {
+                font-size: 16px;
+            }
+            
+            .acknowledgment p {
+                font-size: 16px;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">STAGES OF WAR</div>
+            <div class="nav-links">
+                <a href="../pages/dashboard.html">Dashboard</a>
+                <a href="../pages/games/codm.html">Games</a>
+                <a href="../pages/wallet.html">Wallet</a>
+         <!--- <a href="../pages/leaderboard.html">Leaderboard</a> -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>📜 Terms and Conditions</h1>
+            <p>Please read these terms carefully before using STAGES OF WAR</p>
+            <div class="last-updated">Last Updated: April 18, 2026</div>
+        </div>
+
+        <!-- Acknowledgment Banner -->
+        <div class="acknowledgment">
+            <p>⚠️ BY USING STAGES OF WAR, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO BE BOUND BY THESE TERMS AND CONDITIONS.</p>
+            <small>STAGES OF WAR - Where Skill Meets Challenge</small>
+        </div>
+
+        <!-- Terms and Conditions Content -->
+        <div id="tncContainer"></div>
+
+        <!-- Contact Information Box -->
+        <div class="contact-box">
+            <h3>📬 Contact Information</h3>
+            <p>For questions about these Terms or the Platform, contact us at:</p>
+            <div class="contact-details">
+                <span>📧 Email: legal@stagesofwar.com</span>
+                <span>🌐 Website: stagesofwar.com/contact</span>
+                <span>📞 Phone: +234 800 STAGES (782437)</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/pages/terms.html">Terms of Service</a>
+            <a href="/pages/privacy.html">Privacy Policy</a>
+            <a href="/pages/responsible-gaming.html">Responsible Gaming</a>
+            <a href="/pages/faq.html">FAQ</a>
+        </div>
+        <p>&copy; 2024-2026 STAGES OF WAR. All rights reserved. | Where Legends Are Made ⚔️</p>
+        <p style="font-size: 12px; margin-top: 8px;">Last Updated: April 18, 2026</p>
+    </footer>
+
+    <script>
+        // Terms and Conditions Data Structure
+        const tncData = [
+            {
+                title: "1. ACCEPTANCE OF TERMS",
+                items: [
+                    {
+                        title: "Introduction",
+                        content: "Welcome to STAGES OF WAR. By accessing, registering for, or participating in any skill challenges, competitions, or services offered on stagesofwar.com (\"the Website\"), you (\"User,\" \"Participant,\" \"you\") agree to be bound by these Terms and Conditions, our Privacy Policy, and all applicable laws and regulations."
+                    }
+                ]
+            },
+            {
+                title: "2. ELIGIBILITY",
+                items: [
+                    {
+                        title: "Age Requirement",
+                        content: "You must be at least 13 years old to use the Platform. If you are under 18, you represent that you have your parent or guardian's permission to use the Platform and they have read and agreed to these Terms on your behalf."
+                    },
+                    {
+                        title: "Geographic Restrictions",
+                        content: "The Platform is available to users worldwide, subject to local laws and regulations. Some challenges may be restricted in certain jurisdictions due to legal constraints."
+                    },
+                    {
+                        title: "One Account Per Person",
+                        content: "Each user may maintain only one account. Multiple accounts per individual are strictly prohibited and may result in permanent ban and forfeiture of winnings."
+                    }
+                ]
+            },
+            {
+                title: "3. SKILL CHALLENGES",
+                items: [
+                    {
+                        title: "Nature of Challenges",
+                        content: "STAGES OF WAR hosts skill-based challenges where participants compete using their mental or physical abilities, including but not limited to:<br><ul class='styled-list'><li>Strategy games (CODM, eFootball, DLS)</li><li>Reaction-time tests</li><li>Memory challenges</li><li>Tactical decision making</li><li>Other skill-based competitions</li></ul>"
+                    },
+                    {
+                        title: "No Gambling",
+                        content: "<div class='info-box' style='background:rgba(99,102,241,0.1); padding:12px; border-radius:8px; margin:8px 0;'>All challenges are games of skill. No element of chance determines winners. The Platform does not constitute gambling under applicable laws.</div>"
+                    },
+                    {
+                        title: "Entry Fees and Prizes",
+                        content: "<ul class='styled-list'><li>Some challenges may require entry fees</li><li>Prize amounts and structures will be clearly disclosed before participation</li><li>All fees are non-refundable except as required by law</li><li>Winners receive 90% of total stake (1v1) or 70% of total pot (FFA)</li></ul>"
+                    }
+                ]
+            },
+            {
+                title: "4. USER ACCOUNTS",
+                items: [
+                    {
+                        title: "Account Security",
+                        content: "You are responsible for:<br><ul class='styled-list'><li>Maintaining account confidentiality</li><li>All activities under your account</li><li>Immediately notifying us of unauthorized use</li><li>Strong password practices</li></ul>"
+                    },
+                    {
+                        title: "Accurate Information",
+                        content: "You must provide accurate, current, and complete information during registration and maintain its accuracy. False information may result in account suspension."
+                    }
+                ]
+            },
+            {
+                title: "5. PROHIBITED CONDUCT",
+                items: [
+                    {
+                        title: "Cheating and Fair Play",
+                        content: "<div class='warning-box' style='background:rgba(239,68,68,0.1); padding:12px; border-radius:8px; margin:8px 0;'><strong>⚠️ Strictly prohibited activities include:</strong><br><ul class='styled-list'><li>Using bots, automation, or third-party software</li><li>Exploiting bugs or platform vulnerabilities</li><li>Collusion with other participants</li><li>Multiple account usage (smurfing)</li><li>Any form of unfair advantage</li></ul></div>"
+                    },
+                    {
+                        title: "Content Restrictions",
+                        content: "You may not:<br><ul class='styled-list'><li>Post offensive, harassing, or illegal content</li><li>Share personal information of others</li><li>Infringe intellectual property rights</li><li>Disrupt Platform operations</li></ul>"
+                    }
+                ]
+            },
+            {
+                title: "6. INTELLECTUAL PROPERTY",
+                items: [
+                    {
+                        title: "Platform IP",
+                        content: "We own all rights, title, and interest in:<br><ul class='styled-list'><li>The STAGES OF WAR platform and website</li><li>Challenge designs and mechanics</li><li>Software code and systems</li><li>Branding and trademarks</li></ul>"
+                    },
+                    {
+                        title: "User Content License",
+                        content: "By submitting content, you grant us a worldwide, royalty-free license to use, modify, and display such content for Platform operations."
+                    }
+                ]
+            },
+            {
+                title: "7. PRIZES AND REWARDS",
+                items: [
+                    {
+                        title: "Prize Distribution",
+                        content: "<ul class='styled-list'><li>Winners are determined solely by skill performance</li><li>Prizes are awarded as described in challenge rules</li><li>We reserve the right to verify winners' eligibility</li><li>All prize determinations are final and binding</li></ul>"
+                    },
+                    {
+                        title: "Tax Responsibility",
+                        content: "Participants are solely responsible for any tax implications of prizes won. Consult a tax professional for guidance."
+                    },
+                    {
+                        title: "Prize Disputes",
+                        content: "All prize determinations are final and binding, except where prohibited by law. Disputes must be filed within 7 days of match completion."
+                    }
+                ]
+            },
+            {
+                title: "8. FEES AND PAYMENTS",
+                items: [
+                    {
+                        title: "Entry Fees",
+                        content: "Clear disclosure of all fees before commitment. Payment processing through secure third-party providers (Paystack). Entry fees are held in escrow until match completion."
+                    },
+                    {
+                        title: "Refund Policy",
+                        content: "Entry fees are generally non-refundable. Exceptions may include:<br><ul class='styled-list'><li>Platform-caused technical failures</li><li>Challenge cancellation by us</li><li>No opponent found within 30 minutes</li><li>As required by applicable law</li></ul>"
+                    }
+                ]
+            },
+            {
+                title: "9. TERMINATION",
+                items: [
+                    {
+                        title: "By User",
+                        content: "You may terminate your account at any time by contacting support. Any remaining balance will be paid out after verification."
+                    },
+                    {
+                        title: "By Platform",
+                        content: "We may suspend or terminate accounts for:<br><ul class='styled-list'><li>Violation of these Terms</li><li>Suspicious or fraudulent activity</li><li>Legal or regulatory requirements</li><li>Repeated disputes or false claims</li><li>Chargeback fraud</li></ul>"
+                    }
+                ]
+            },
+            {
+                title: "10. DISCLAIMERS AND LIMITATIONS",
+                items: [
+                    {
+                        title: "Service 'As Is'",
+                        content: "The Platform is provided 'as is' without warranties of any kind. We do not guarantee uninterrupted or error-free service."
+                    },
+                    {
+                        title: "Limitation of Liability",
+                        content: "<div class='warning-box' style='background:rgba(239,68,68,0.1); padding:12px; border-radius:8px;'>To the maximum extent permitted by law, we are not liable for:<br><ul class='styled-list'><li>Indirect, incidental, or consequential damages</li><li>Challenge outcomes or prize distributions</li><li>User interactions or content</li><li>Technical failures or interruptions</li></ul></div>"
+                    }
+                ]
+            },
+            {
+                title: "11. INDEMNIFICATION",
+                items: [
+                    {
+                        title: "User Responsibility",
+                        content: "You agree to indemnify and hold harmless STAGES OF WAR, its affiliates, and employees from any claims, damages, or expenses arising from your use of the Platform or violation of these Terms."
+                    }
+                ]
+            },
+            {
+                title: "12. MODIFICATIONS",
+                items: [
+                    {
+                        title: "Terms Updates",
+                        content: "We reserve the right to modify these Terms at any time. Continued use after changes constitutes acceptance. Material changes will be notified via email."
+                    },
+                    {
+                        title: "Platform Changes",
+                        content: "We may modify, suspend, or discontinue any aspect of the Platform without prior notice. We will not be liable for any such changes."
+                    }
+                ]
+            },
+            {
+                title: "13. GOVERNING LAW AND DISPUTES",
+                items: [
+                    {
+                        title: "Governing Law",
+                        content: "These Terms shall be governed by the laws of Nigeria, Lagos State, without regard to its conflict of law provisions."
+                    },
+                    {
+                        title: "Dispute Resolution",
+                        content: "Any disputes shall first be attempted to be resolved through informal negotiation. If unresolved, disputes shall be resolved through binding arbitration in accordance with the Lagos Multi-Door Courthouse (LMDC) rules. Class actions are waived."
+                    }
+                ]
+            },
+            {
+                title: "14. PRIVACY",
+                items: [
+                    {
+                        title: "Data Protection",
+                        content: "Your privacy is important to us. Please review our Privacy Policy for information on how we collect, use, and protect your data. We comply with applicable data protection laws including the Nigeria Data Protection Regulation (NDPR)."
+                    }
+                ]
+            },
+            {
+                title: "15. SEVERABILITY",
+                items: [
+                    {
+                        title: "Partial Invalidity",
+                        content: "If any provision of these Terms is found unenforceable, the remaining provisions remain in full effect. The invalid provision will be reformed to the extent necessary to make it enforceable while preserving the original intent."
+                    }
+                ]
+            },
+            {
+                title: "16. ENTIRE AGREEMENT",
+                items: [
+                    {
+                        title: "Complete Understanding",
+                        content: "These Terms, with our Privacy Policy and Responsible Gaming Policy, constitute the entire agreement between you and STAGES OF WAR regarding Platform use. This supersedes any prior agreements or understandings."
+                    }
+                ]
+            }
+        ];
+
+        // Build Terms and Conditions HTML
+        function buildTNC() {
+            const container = document.getElementById('tncContainer');
+            let html = '';
+
+            tncData.forEach((category, catIndex) => {
+                html += `
+                    <div class="faq-category">
+                        <div class="category-header" data-cat="${catIndex}">
+                            <h2>${category.title}</h2>
+                            <span class="category-icon">▼</span>
+                        </div>
+                        <div class="category-items" id="category-${catIndex}">
+                            ${category.items.map((item, itemIndex) => `
+                                <div class="content-item">
+                                    <div class="item-title" data-cat="${catIndex}" data-item="${itemIndex}">
+                                        <span>${item.title}</span>
+                                        <span class="expand-icon">▼</span>
+                                    </div>
+                                    <div class="item-content" id="content-${catIndex}-${itemIndex}">
+                                        ${item.content}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            attachEventListeners();
+        }
+
+        // Attach click event listeners
+        function attachEventListeners() {
+            // Category headers
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const catIndex = header.dataset.cat;
+                    const itemsContainer = document.getElementById(`category-${catIndex}`);
+                    const isOpen = itemsContainer.classList.contains('open');
+                    
+                    itemsContainer.classList.toggle('open');
+                    header.classList.toggle('open');
+                });
+            });
+
+            // Individual content items
+            document.querySelectorAll('.item-title').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const catIndex = item.dataset.cat;
+                    const itemIndex = item.dataset.item;
+                    const content = document.getElementById(`content-${catIndex}-${itemIndex}`);
+                    const isOpen = content.classList.contains('open');
+                    
+                    content.classList.toggle('open');
+                    item.classList.toggle('open');
+                });
+            });
+        }
+
+        // Theme Toggle
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('themeToggle').textContent = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.body.style.background = '#f8fafc';
+                localStorage.setItem('theme', 'light');
+                document.getElementById('themeToggle').textContent = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            buildTNC();
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>

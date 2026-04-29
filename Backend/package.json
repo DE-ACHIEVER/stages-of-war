@@ -1,0 +1,48 @@
+{
+  "name": "stages-of-war",
+  "version": "1.0.0",
+  "description": "P2P Skill-Based Wagering Platform for Mobile Gaming",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "frontend": "cd frontend && npx live-server --port=3000",
+    "dev:full": "concurrently \"npm run dev\" \"npm run frontend\"",
+    "db:migrate": "node database/migrations/run.js",
+    "db:seed": "node database/seeds/run.js",
+    "test": "node --experimental-vm-modules backend/tests/run.js"
+  },
+  "dependencies": {
+    "africastalking": "^0.7.9",
+    "axios": "^1.14.0",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "express-rate-limit": "^7.5.1",
+    "express-validator": "^7.3.1",
+    "file-type": "^18.7.0",
+    "form-data": "^4.0.5",
+    "helmet": "^7.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mailgun.js": "^12.7.1",
+    "morgan": "^1.10.1",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^8.0.4",
+    "pg": "^8.20.0",
+    "sharp": "^0.33.5",
+    "socket.io": "^4.8.3",
+    "uuid": "^9.0.1",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "jest": "^30.2.0",
+    "live-server": "^1.2.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
+  }
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../pages/dashboard.html" class="active">Dashboard</a>
+                <a href="../pages/games/codm.html">Games</a>
+                <a href="../pages/leaderboard.html">Leaderboard</a>
+                <a href="../pages/wallet.html">Wallet</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+                <div class="user-menu">
+                    <span class="balance">₦0.00</span>
+                    <div class="user-dropdown">
+                        <img src="/images/default-avatar.png" alt="Profile" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile.html">Profile</a>
+                            <a href="/history.html">Match History</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Dashboard Main Content -->
+    <main class="dashboard">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h1>Welcome back, <span id="dashboardUsername"></span>!</h1>
+                    <p>Ready to claim your next victory?</p>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <span class="stat-label">Balance</span>
+                        <span class="stat-value" id="balance">₦0.00</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Total Wins</span>
+                        <span class="stat-value" id="totalWins">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-value" id="winRate">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-grid">
+                    <a href="../pages/games/codm.html" class="action-card">
+                        <div class="action-icon">🎮</div>
+                        <h3>Play CODM</h3>
+                        <p>Find opponents now</p>
+                    </a>
+                    <a href="../pages/wallet.html?action=deposit" class="action-card">
+                        <div class="action-icon">💰</div>
+                        <h3>Deposit Funds</h3>
+                        <p>Add money to wallet</p>
+                    </a>
+                    <a href="/matches/active.html" class="action-card">
+                        <div class="action-icon">⚔️</div>
+                        <h3>Active Matches</h3>
+                        <p id="activeMatches">0 ongoing</p>
+                    </a>
+                    <a href="/history.html" class="action-card">
+                        <div class="action-icon">📊</div>
+                        <h3>Match History</h3>
+                        <p>View your stats</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Active Matches Section -->
+            <div class="active-matches-section">
+                <h2>Your Active Matches</h2>
+                <div class="matches-list" id="activeMatchesList">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading">Loading matches...</div>
+                </div>
+            </div>
+
+            <!-- Available Opponents -->
+            <div class="available-opponents">
+                <h2>Ready to Play?</h2>
+                <p class="section-subtitle">Choose a game to find opponents</p>
+                <div class="game-cards">
+                    <div class="game-card available" data-game="codm">
+                        <img src="../image/codm7.jpg" alt="CODM">
+                        <div class="game-info">
+                            <h3>Call of Duty: Mobile</h3>
+                            <p>52 players online</p>
+                            <a href="../pages/games/codm.html" class="btn btn-primary">Play Now</a>
+                        </div>
+                    </div>
+                    <div class="game-card coming-soon">
+                        <img src="../image/Efootball.jpg" alt="eFootball">
+                        <div class="game-info">
+                            <h3>EFootball</h3>
+                            <p>Coming Soon</p>
+                            <button class="btn btn-outline" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                    <div class="game-card coming-soon">
+                        <img src="../image/freefire1.jpeg" alt="FreeFire">
+                        <div class="game-info">
+                            <h3>FreeFire</h3>
+                            <p>Coming Soon</p>
+                            <button class="btn btn-outline" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div class="activity-timeline" id="activityTimeline">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading">Loading activity...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="footer-logo">
+                <p>Where legends are made through skill, strategy, and competition.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="../pages/games/codm.html">Games</a>
+                <a href="../pages/leaderboard.html">Leaderboard</a>
+                <a href="../pages/how-it-works.html">How It Works</a>
+                <a href="../pages/faq.html">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="../pages/T&C.html">Terms of Service</a>
+                <a href="../pages/privacy.html">Privacy Policy</a>
+                <a href="../pages/R&G.html">Responsible Gaming</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>support@stagesofwar.com</p>
+                <p>24/7 Support</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 STAGES OF WAR. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../public/js/api.js"></script>
+    <script src="../public/js/theme.js"></script>
+    <script src="../public/js/dashboard.js"></script>
+</body>
+</html>

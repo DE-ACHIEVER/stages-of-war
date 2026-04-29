@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Details - STAGES OF WAR</title>
+    <link rel="stylesheet" href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\public\css\main.css">
+    <link rel="stylesheet" href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\public\css\main.css">
+</head>
+<body class="light-mode">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.svg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            <div class="nav-links">
+                <a href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\pages\dashboard.html">Dashboard</a>
+                <a href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\pages\games\codm.html">Games</a>
+                <a href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\pages\wallet.html">Wallet</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+                <div class="user-menu">
+                    <span class="balance">₦0.00</span>
+                    <img src="/images/default-avatar.png" alt="Profile" class="avatar">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Match Container -->
+    <main class="match-container">
+        <div class="container">
+            <!-- Match Header -->
+            <div class="match-header">
+                <div class="match-breadcrumb">
+                    <a href="/games/codm.html">← Back to Lobby</a>
+                </div>
+                <div class="match-title">
+                    <h1>Match Details</h1>
+                    <span class="match-id-badge" id="matchId">#12345</span>
+                </div>
+                <div class="match-status-badge" id="matchStatus">Active</div>
+            </div>
+
+            <!-- Match Progress -->
+            <div class="match-progress">
+                <div class="progress-step completed">
+                    <div class="step-icon">1</div>
+                    <div class="step-label">Match Created</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step active" id="step2">
+                    <div class="step-icon">2</div>
+                    <div class="step-label">Exchange IDs</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step3">
+                    <div class="step-icon">3</div>
+                    <div class="step-label">Play Match</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step4">
+                    <div class="step-icon">4</div>
+                    <div class="step-label">Submit Evidence</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step5">
+                    <div class="step-icon">5</div>
+                    <div class="step-label">Get Paid</div>
+                </div>
+            </div>
+
+            <!-- Match Details Grid -->
+            <div class="match-details-grid">
+                <!-- Left Column - Match Info -->
+                <div class="match-info-card">
+                    <h2>Match Information</h2>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Game:</span>
+                        <span class="info-value">Call of Duty: Mobile</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Stake Amount:</span>
+                        <span class="info-value highlight" id="stakeAmount">₦0</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Total Pool:</span>
+                        <span class="info-value" id="totalPool">₦0</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Winner Gets:</span>
+                        <span class="info-value winner-prize" id="winnerPrize">₦0</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Platform Fee:</span>
+                        <span class="info-value">10% (₦<span id="platformFee">0</span>)</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Created:</span>
+                        <span class="info-value" id="createdAt">Just now</span>
+                    </div>
+
+                    <div class="timer-section" id="timerSection" style="display: none;">
+                        <h3>⏰ Evidence Timer</h3>
+                        <div class="timer-display" id="timerDisplay">02:00:00</div>
+                        <p class="timer-note">Time remaining to submit/respond</p>
+                    </div>
+                </div>
+
+                <!-- Right Column - Players -->
+                <div class="players-card">
+                    <h2>Players</h2>
+                    
+                    <!-- Player 1 (You) -->
+                    <div class="player-card" id="player1Card">
+                        <div class="player-avatar">
+                            <img src="/images/default-avatar.png" alt="You">
+                            <span class="player-badge">You</span>
+                        </div>
+                        <div class="player-info">
+                            <h3 id="player1Name">You</h3>
+                            <div class="player-stats">
+                                <span>Wins: <span id="player1Wins">0</span></span>
+                                <span>Losses: <span id="player1Losses">0</span></span>
+                            </div>
+                            <div class="player-game-id" id="player1GameIdContainer" style="display: none;">
+                                <label>CODM ID:</label>
+                                <span id="player1GameId">-</span>
+                            </div>
+                        </div>
+                        <div class="player-status" id="player1Status">Ready</div>
+                    </div>
+
+                    <!-- VS Divider -->
+                    <div class="vs-divider">VS</div>
+
+                    <!-- Player 2 (Opponent) -->
+                    <div class="player-card" id="player2Card">
+                        <div class="player-avatar">
+                            <img src="/images/default-avatar.png" alt="Opponent">
+                            <span class="player-badge">Opponent</span>
+                        </div>
+                        <div class="player-info">
+                            <h3 id="player2Name">Waiting for opponent...</h3>
+                            <div class="player-stats" id="player2Stats" style="display: none;">
+                                <span>Wins: <span id="player2Wins">0</span></span>
+                                <span>Losses: <span id="player2Losses">0</span></span>
+                            </div>
+                            <div class="player-game-id" id="player2GameIdContainer" style="display: none;">
+                                <label>CODM ID:</label>
+                                <span id="player2GameId">-</span>
+                            </div>
+                        </div>
+                        <div class="player-status" id="player2Status">Waiting...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Section -->
+            <div class="action-section" id="actionSection">
+                <!-- Dynamic content based on match state -->
+            </div>
+
+            <!-- Evidence Section (for completed matches) -->
+            <div class="evidence-section" id="evidenceSection" style="display: none;">
+                <h2>Match Evidence</h2>
+                <div class="evidence-grid" id="evidenceGrid">
+                    <!-- Evidence images will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Dispute Section -->
+            <div class="dispute-section" id="disputeSection" style="display: none;">
+                <h2>Dispute This Match?</h2>
+                <p>If you believe the evidence is fake or the result is wrong, you can raise a dispute.</p>
+                <button class="btn btn-danger" id="raiseDisputeBtn">Raise Dispute</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Action Templates -->
+    <template id="submitGameIdTemplate">
+        <div class="action-card">
+            <h3>Submit Your CODM ID</h3>
+            <p>Enter your in-game ID so your opponent can add you.</p>
+            <div class="form-group">
+                <input type="text" id="gameIdInput" placeholder="e.g., 6789012345" class="form-input">
+            </div>
+            <button class="btn btn-primary" id="submitGameIdBtn">Submit ID</button>
+        </div>
+    </template>
+
+    <template id="waitingForOpponentTemplate">
+        <div class="action-card waiting">
+            <div class="spinner"></div>
+            <h3>Waiting for opponent's ID</h3>
+            <p>Your opponent hasn't submitted their CODM ID yet.</p>
+        </div>
+    </template>
+
+    <template id="readyToPlayTemplate">
+        <div class="action-card success">
+            <h3>✅ Ready to Play!</h3>
+            <p>Both IDs have been exchanged. Add your opponent in CODM and play your match.</p>
+            <div class="game-ids-display">
+                <div class="id-box">
+                    <span class="label">Your ID:</span>
+                    <span class="value" id="yourIdDisplay"></span>
+                </div>
+                <div class="id-box">
+                    <span class="label">Opponent's ID:</span>
+                    <span class="value" id="opponentIdDisplay"></span>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="playedMatchBtn">I've Played the Match</button>
+        </div>
+    </template>
+
+    <template id="uploadEvidenceTemplate">
+        <div class="action-card">
+            <h3>Upload Evidence</h3>
+            <p>Upload screenshots showing the final result. Max 3 images.</p>
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                <div class="upload-placeholder">
+                    <span class="upload-icon">📸</span>
+                    <p>Drag & drop or click to upload</p>
+                    <small>JPG, PNG up to 5MB each</small>
+                </div>
+                <div class="upload-preview" id="uploadPreview"></div>
+            </div>
+            <button class="btn btn-primary" id="submitEvidenceBtn" disabled>Submit Evidence</button>
+        </div>
+    </template>
+
+    <template id="confirmLossTemplate">
+        <div class="action-card warning">
+            <h3>Confirm Match Result</h3>
+            <p>Did you lose this match? Confirming will transfer the stake to your opponent.</p>
+            <div class="warning-box">
+                <strong>⚠️ Warning:</strong> This action cannot be undone
+            </div>
+            <button class="btn btn-danger" id="confirmLossBtn">I Lost - Pay Opponent</button>
+            <button class="btn btn-outline" id="disputeInsteadBtn">Dispute Instead</button>
+        </div>
+    </template>
+
+    <template id="waitingForConfirmationTemplate">
+        <div class="action-card waiting">
+            <div class="spinner"></div>
+            <h3>Waiting for loser confirmation</h3>
+            <p>Your opponent has 2 hours to confirm or dispute.</p>
+            <div class="timer" id="confirmationTimer">02:00:00</div>
+        </div>
+    </template>
+
+    <template id="matchCompletedTemplate">
+        <div class="action-card success">
+            <h3>✅ Match Completed</h3>
+            <p>Winner: <span id="winnerName"></span></p>
+            <p>Amount paid: <span class="highlight" id="paidAmount"></span></p>
+        </div>
+    </template>
+
+    <template id="matchDisputedTemplate">
+        <div class="action-card dispute">
+            <h3>⚠️ Match Disputed</h3>
+            <p>An admin has been notified and will review the case shortly.</p>
+            <p>Dispute ID: <span id="disputeId"></span></p>
+        </div>
+    </template>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/match-detail.js"></script>
+</body>
+</html>

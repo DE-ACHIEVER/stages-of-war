@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - STAGES OF WAR</title>
+    <link rel="icon" type="image/png" href="../image/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        /* Dark/Light Theme Variables */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #475569;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* FAQ Categories */
+        .faq-category {
+            margin-bottom: 32px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .category-header {
+            background: var(--bg-secondary);
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .category-header:hover {
+            background: var(--bg-primary);
+        }
+
+        .category-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .category-icon {
+            font-size: 28px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-header.open .category-icon {
+            transform: rotate(180deg);
+        }
+
+        /* FAQ Items Container */
+        .faq-items {
+            display: none;
+            padding: 0 24px 24px 24px;
+        }
+
+        .faq-items.open {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Individual FAQ Item */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question .q-mark {
+            color: var(--primary);
+            font-weight: 800;
+            margin-right: 12px;
+        }
+
+        .faq-question .expand-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.open .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 16px 0 8px 28px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            border-left: 2px solid var(--primary);
+            margin-top: 8px;
+        }
+
+        .faq-answer.open {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Code & Highlight Styles */
+        .highlight {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .code {
+            background: var(--bg-secondary);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid var(--danger);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 3px solid var(--success);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        /* Quick Reference Card */
+        .quick-ref {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .quick-ref h3 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: var(--primary-light);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .category-header h2 {
+                font-size: 18px;
+            }
+            
+            .faq-question {
+                font-size: 15px;
+            }
+            
+            .faq-answer {
+                padding-left: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">STAGES OF WAR</div>
+            <div class="nav-links">
+                <a href="../pages/dashboard.html">Dashboard</a>
+                <a href="../pages/games/codm.html">Games</a>
+                <a href="../pages/wallet.html">Wallet</a>
+               <!--- <a href="../pages/leaderboard.html">Leaderboard</a> -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>📋 FREQUENTLY ASKED QUESTIONS</h1>
+            <p>Everything you need to know about STAGES OF WAR</p>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div id="faqContainer"></div>
+
+        <!-- Quick Reference Card -->
+        <div class="quick-ref">
+            <h3>⚡ QUICK REFERENCE CARD</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th colspan="2">Minimum Stakes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1v1 Match</td><td>₦100 - ₦50,000</td></tr>
+                        <tr><td>8-Player FFA</td><td>₦500 - ₦10,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th colspan="2">Payout Structure</th></tr></thead>
+                    <tbody>
+                        <tr><td>1v1</td><td>Winner gets <span class="highlight">90%</span> of total stake | Platform gets <span class="highlight">10%</span></td></tr>
+                        <tr><td>FFA</td><td>Winner gets <span class="highlight">70%</span> of total pot | Platform takes <span class="highlight">30%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th colspan="2">Time Limits</th></tr></thead>
+                    <tbody>
+                        <tr><td>Join match after creation</td><td>10 minutes</td></tr>
+                        <tr><td>Confirm win after submission</td><td>30 minutes</td></tr>
+                        <tr><td>Dispute resolution</td><td>24 hours</td></tr>
+                        <tr><td>Withdrawal processing</td><td>1-3 days</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box" style="margin-top: 20px; text-align: center;">
+                <strong>Still have questions?</strong> 📧 support@stagesofwar.com | 💬 Live Chat (bottom right)
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024-2026 STAGES OF WAR. All rights reserved. | Where Legends Are Made ⚔️</p>
+        <p style="font-size: 12px; margin-top: 8px;">FAQ Updated: April 2026</p>
+    </footer>
+
+    <script>
+        // FAQ Data Structure
+        const faqData = [
+            {
+                title: "🎯 GETTING STARTED",
+                icon: "🎯",
+                items: [
+                    { q: "What is Stages of War?", a: "Stages of War is a platform where you can compete against other players in mobile games like Call of Duty Mobile, eFootball, and Dream League Soccer for real money. You stake your own money, and if you win, you get paid (minus a small platform fee)." },
+                    { q: "Do I need to be a professional gamer?", a: "Not at all! Players of all skill levels are welcome. You choose how much money you want to risk (starting from as low as ₦100 for 1v1 matches). Play against people at your own comfort level." },
+                    { q: "What games can I play?", a: "<strong>Currently supported:</strong><br>• Call of Duty: Mobile (CODM) - 1v1 and 8-player FFA<br>• eFootball - 1v1 matches only<br>• Dream League Soccer (DLS) - 1v1 matches only<br><br>More games coming soon!" },
+                    { q: "How do I create an account?", a: "1. Click 'Sign Up' on our homepage<br>2. Enter your desired Username<br>3. Enter your Email address<br>4. Create a Password (at least 6 characters)<br>5. Click 'Create Account'<br>6. Verify your phone number with the 6-digit code sent via SMS" },
+                    { q: "1v1 vs 8-Player FFA - what's the difference?", a: "<strong>1v1 Match:</strong> You vs ONE opponent. Winner takes 90% of total stake.<br><br><strong>8-Player FFA:</strong> You vs SEVEN other players. Winner takes 70% of total pot.<br><br><strong>Example:</strong><br>• 1v1 with ₦1000 stake → Winner gets ₦1800<br>• FFA with ₦1000 each → Total pot ₦8000 → Winner gets ₦5600" }
+                ]
+            },
+            {
+                title: "💰 ACCOUNT & WALLET",
+                icon: "💰",
+                items: [
+                    { q: "How do I add money to my wallet?", a: "1. Log into your account<br>2. Click the 'Wallet' button<br>3. Enter the amount you want to deposit (minimum ₦100)<br>4. You'll be redirected to Paystack<br>5. Choose your payment method (Card, Bank Transfer, USSD)<br>6. Complete the payment<br>7. Money appears in your wallet instantly!" },
+                    { q: "Is my money safe?", a: "<div class='info-box'>✅ Secure Escrow System: Your stake is held safely until match complete<br>✅ No Direct Transfers: Players never send money directly to each other<br>✅ Paystack Protection: All payments go through Paystack, a licensed payment provider<br>✅ Dispute Resolution: Our team reviews evidence and ensures fair outcome</div>" },
+                    { q: "How do I withdraw my winnings?", a: "1. Click 'Wallet' in your dashboard<br>2. Click 'Withdraw Funds'<br>3. Enter the amount (minimum ₦1000)<br>4. Enter your bank account details<br>5. Confirm withdrawal<br>6. Money arrives in 1-3 business days" },
+                    { q: "What are the fees?", a: "<strong>Deposits:</strong> FREE (Paystack may charge small transaction fees)<br><strong>Withdrawals:</strong> ₦50 flat fee<br><strong>Match Fees:</strong><br>• 10% for 1v1 matches<br>• 30% for FFA matches" },
+                    { q: "Can I cancel a match and get my money back?", a: "• ✅ Before match starts: Yes! 100% refund if no opponent joined<br>• ❌ After match starts: No, match must be played or disputed<br>• ⏰ If no opponent joins within 30 minutes: Match auto-cancels, full refund issued" }
+                ]
+            },
+            {
+                title: "🎮 CREATING & JOINING MATCHES",
+                icon: "🎮",
+                items: [
+                    { q: "How do I create a match?", a: "1. Click 'Create Match' on your dashboard<br>2. Select your game (CODM, eFootball, or DLS)<br>3. Choose match type (1v1 or FFA)<br>4. Enter stake amount<br>5. Enter your in-game ID<br>6. Enter lobby code from your game OR generate new code<br>7. Click 'Create Match'<br>8. Share the code with your opponent(s)" },
+                    { q: "How do I join an existing match?", a: "1. Click 'Join Match' on your dashboard<br>2. Enter the lobby code given to you<br>3. Enter your in-game ID<br>4. Click 'Join'<br>5. Wait for the match to start" },
+                    { q: "What is a 'lobby code'?", a: "A lobby code is a number that identifies your private game room.<br><br><strong>How to find it:</strong><br>• CODM: Create private room → 10-digit number appears at top<br>• eFootball: Create match room → Room ID displayed<br>• DLS: Create friendly match → Match code displayed" },
+                    { q: "How long do I wait for opponents?", a: "• 1v1 matches: Usually 1-5 minutes<br>• FFA matches: 5-15 minutes (needs 8 players)<br>• You can leave the queue anytime before match starts" }
+                ]
+            },
+            {
+                title: "⚔️ PLAYING MATCHES",
+                icon: "⚔️",
+                items: [
+                    { q: "How do I actually play the game?", a: "<strong>Step 1 - Preparation:</strong><br>• See opponent's in-game ID<br>• Open your game → Multiplayer → Private Room<br>• Enter the lobby code<br><br><strong>Step 2 - Connect:</strong><br>• Add opponent using their in-game ID<br>• Wait for them to accept<br>• Start the private match<br><br><strong>Step 3 - Play:</strong><br>• Play according to standard game rules<br>• Record or screenshot your victory!<br><br><strong>Step 4 - Report:</strong><br>• Winner uploads proof screenshot<br>• Loser confirms defeat OR disputes" },
+                    { q: "What if my opponent doesn't show up?", a: "• Wait 10 minutes in the game lobby<br>• Report 'No Show' on our platform<br>• We'll investigate and refund your stake<br>• The absent player may face penalties" },
+                    { q: "What if I lose connection during match?", a: "• Try to reconnect immediately<br>• If you can't reconnect within 5 minutes, match is forfeit<br>• Contact support with evidence if it was our/your internet's fault" },
+                    { q: "What are the official game rules?", a: "<strong>CODM:</strong><br>• 1v1: First to 20 kills or 10 minutes<br>• FFA: First to 30 kills or 15 minutes<br><br><strong>eFootball:</strong><br>• Standard match: 10 minutes<br>• No extra time/draws<br><br><strong>DLS:</strong><br>• Standard match: 10 minutes<br>• Classic mode only" }
+                ]
+            },
+            {
+                title: "🏆 WINNING & PAYMENTS",
+                icon: "🏆",
+                items: [
+                    { q: "How do I claim my win?", a: "1. After winning, stay on our platform<br>2. Click 'Submit Result' → 'I Won'<br>3. Upload clear screenshot showing final score and both players' names<br>4. Wait for opponent to confirm (30 minutes max)<br>5. Winnings deposited automatically!" },
+                    { q: "What if the loser doesn't confirm my win?", a: "They have 30 minutes to confirm or dispute. If they do nothing, the system auto-confirms your win after 30 minutes and you'll receive your winnings automatically." },
+                    { q: "What counts as valid proof?", a: "<strong>Valid proof must show:</strong><br>• Clear screenshot/video<br>• Final score/result clearly visible<br>• Both player names/usernames<br>• Match duration/timestamp<br>• No editing or manipulation<br><br><strong>INVALID proof:</strong> Blurry images, cropped screenshots, edited photos" },
+                    { q: "What happens in case of a draw/tie?", a: "• For 1v1: Rematch with same stakes (no additional fee)<br>• For FFA: Sudden death (1 more minute)<br>• If still tied: Stakes refunded to all players" },
+                    { q: "Can I get banned for false reporting?", a: "Yes. 1st false report: Warning | 2nd: 1-week suspension | 3rd: Permanent ban + forfeit of wallet balance" }
+                ]
+            },
+            {
+                title: "🛡️ SAFETY & FAIR PLAY",
+                icon: "🛡️",
+                items: [
+                    { q: "How do you prevent cheating?", a: "• Proof verification: All wins require screenshot evidence<br>• Dispute system: Players can challenge unfair results<br>• Admin review: Our team reviews disputed matches<br>• Match history: All matches are recorded<br>• Anti-collusion: We detect if friends play each other repeatedly" },
+                    { q: "What is 'collusion' and why is it banned?", a: "<div class='warning-box'><strong>⚠️ Collusion is when two players agree to:</strong><br>• Let one person win on purpose<br>• Split winnings afterwards<br>• Take turns winning to farm money<br><br><strong>Penalty:</strong> Permanent ban for all involved, forfeiture of all wallet balances, potential legal action for fraud.</div>" },
+                    { q: "What should I do if I suspect cheating?", a: "• Don't confirm the match result<br>• Click 'Dispute' immediately<br>• Provide your evidence<br>• Our admin team will review within 24 hours" },
+                    { q: "Is my personal information safe?", a: "<div class='success-box'>✅ Passwords are encrypted (hashed)<br>✅ We never store your payment details<br>✅ Paystack handles all payment security<br>✅ We don't share your data with third parties</div>" }
+                ]
+            },
+            {
+                title: "🔧 TROUBLESHOOTING",
+                icon: "🔧",
+                items: [
+                    { q: "I can't log into my account!", a: "• Forgot password? Click 'Forgot Password' on login page<br>• Wrong email? Check you're using the email you signed up with<br>• Browser issues? Clear cache and cookies<br>• Still stuck? Contact support with your username" },
+                    { q: "My payment isn't going through!", a: "Common issues:<br>• Insufficient funds: Check your bank balance<br>• Bank limits: Some banks have daily transaction limits<br>• Paystack issues: Try again in 10 minutes" },
+                    { q: "The lobby code isn't working!", a: "• Check you entered exactly 10 digits<br>• Make sure no spaces or dashes<br>• Ask the creator to regenerate code<br>• Ensure you're in the correct game<br>• Check that the match hasn't expired" },
+                    { q: "Can I use the site on mobile?", a: "Yes! Our website is mobile-responsive. Works on all smartphones, no app needed, same features as desktop, optimized for touch screens." },
+                    { q: "How do I contact support?", a: "<strong>Multiple ways:</strong><br>📧 Email: support@stagesofwar.com<br>💬 Live Chat: Available 9 AM - 9 PM daily<br>💬 Discord: Join our community server<br>📱 WhatsApp: Available on our website<br>⏱️ Response time: Usually within 2 hours" }
+                ]
+            }
+        ];
+
+        // Build FAQ HTML
+        function buildFAQ() {
+            const container = document.getElementById('faqContainer');
+            let html = '';
+
+            faqData.forEach((category, catIndex) => {
+                html += `
+                    <div class="faq-category">
+                        <div class="category-header" data-cat="${catIndex}">
+                            <h2>${category.title}</h2>
+                            <span class="category-icon">▼</span>
+                        </div>
+                        <div class="faq-items" id="category-${catIndex}">
+                            ${category.items.map((item, itemIndex) => `
+                                <div class="faq-item">
+                                    <div class="faq-question" data-cat="${catIndex}" data-item="${itemIndex}">
+                                        <span><span class="q-mark">Q:</span> ${item.q}</span>
+                                        <span class="expand-icon">▼</span>
+                                    </div>
+                                    <div class="faq-answer" id="answer-${catIndex}-${itemIndex}">
+                                        ${item.a}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            attachEventListeners();
+        }
+
+        // Attach click event listeners
+        function attachEventListeners() {
+            // Category headers
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const catIndex = header.dataset.cat;
+                    const itemsContainer = document.getElementById(`category-${catIndex}`);
+                    const isOpen = itemsContainer.classList.contains('open');
+                    
+                    itemsContainer.classList.toggle('open');
+                    header.classList.toggle('open');
+                });
+            });
+
+            // Individual FAQ questions
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const catIndex = question.dataset.cat;
+                    const itemIndex = question.dataset.item;
+                    const answer = document.getElementById(`answer-${catIndex}-${itemIndex}`);
+                    const isOpen = answer.classList.contains('open');
+                    
+                    answer.classList.toggle('open');
+                    question.classList.toggle('open');
+                });
+            });
+        }
+
+        // Theme Toggle
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('themeToggle').textContent = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.body.style.background = '#f8fafc';
+                localStorage.setItem('theme', 'light');
+                document.getElementById('themeToggle').textContent = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            buildFAQ();
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>

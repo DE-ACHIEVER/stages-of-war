@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="auth-logo">
+                <h1>Create Account</h1>
+                <p>Join the battle and start winning</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            placeholder="e.g., DE_ACHIEVER"
+                            pattern="^[A-Za-z0-9][A-Za-z0-9!@#$%^&*_-]{2,19}$"
+                            title="3-20 characters, can include ! @ # $ % ^ & * _ - (max 2 special characters)"
+                            required
+                        >
+                        <small>3-20 characters, max 2 special chars</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="your@email.com"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="08012345678"
+                        pattern="[0-9]{11,15}"
+                        title="Enter a valid Nigerian phone number"
+                        required
+                    >
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                         <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Create password"
+                            pattern="[A-Za-z0-9][A-Za-z0-9!@#$%^&*_-]{2,19}"
+                            title="Minimum 8 characters, at least one uppercase letter, one number, and one special character"
+                            required
+                        >
+                        <span class="password-toggle" onclick="togglePassword('password')">👁️</span>
+                    </div>
+                </div>
+
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            placeholder="Confirm password"
+                            required
+                        >
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</span>
+                    </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="age" required>
+                        <span>I confirm that I am 18 years or older</span>
+                    </label>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="terms" required>
+                        <span>I agree to the <a href="../pages/T&C.html">Terms of Service</a> and <a href="../pages/privacy.html">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <div class="error-message" id="registerError" style="display: none;"></div>
+
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="../pages/login.html">Login</a></p>
+            </div>
+        </div>
+
+        <div class="auth-image">
+            <img src="../image/stages.jpg" alt="Gaming Setup">
+            <div class="auth-quote">
+                "Every legend starts as a challenger."
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/api.js"></script>
+    <script src="../public/js/main.js"></script>
+</body>
+</html>

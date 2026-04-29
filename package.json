@@ -1,0 +1,41 @@
+
+{
+  "name": "stages-of-war",
+  "version": "1.0.0",
+  "description": "P2P Skill-Based Wagering Platform for Mobile Gaming",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "frontend": "cd frontend && npx live-server --port=3000",
+    "dev:full": "concurrently \"npm run dev\" \"npm run frontend\"",
+    "db:migrate": "node database/migrations/run.js",
+    "db:seed": "node database/seeds/run.js",
+    "test": "node --experimental-vm-modules backend/tests/run.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.1",
+    "file-type": "^18.7.0",
+    "axios": "^1.6.2",
+    "node-cron": "^3.0.3",
+    "winston": "^3.11.0",
+    "cookie-parser": "^1.4.6",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2",
+    "live-server": "^1.2.2"
+  }
+}

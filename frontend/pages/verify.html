@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Phone - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/auth.css">
+    <style>
+        .timer-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .timer-display {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            font-family: monospace;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .timer-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .code-inputs input {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 8px;
+            font-weight: 700;
+            font-family: monospace;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .btn-primary {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-logo {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        small {
+            display: block;
+            margin-top: 8px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .resend-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .resend-section a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .resend-section.disabled a {
+            color: #999;
+            pointer-events: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card verify-card">
+            <div class="auth-header">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="auth-logo">
+                <h1>Verify Your Phone</h1>
+                <p>We've sent a 6-digit code to your phone</p>
+            </div>
+
+            <div class="timer-container" id="timerContainer">
+                <div class="timer-display" id="timerDisplay">10:00</div>
+                <div class="timer-label">Time remaining to enter code</div>
+            </div>
+
+            <form id="verifyForm" class="auth-form">
+                <div class="form-group">
+                    <label for="code">Verification Code</label>
+                    <div class="code-inputs">
+                        <input 
+                            type="text" 
+                            id="code" 
+                            name="code" 
+                            placeholder="000000" 
+                            maxlength="6" 
+                            pattern="[0-9]{6}" 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <small>Enter the 6-digit code sent to your phone</small>
+                </div>
+
+                <div id="messageArea"></div>
+
+                <button type="submit" class="btn-primary" id="verifyBtn">Verify Phone</button>
+
+                <div class="resend-section" id="resendSection">
+                    <p>Didn't receive code? <a href="#" id="resendCode">Resend Code</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        
+        let countdownInterval = null;
+        let timeLeft = 600;
+        let canResend = false;
+        
+        const identifier = localStorage.getItem('resetIdentifier') || sessionStorage.getItem('pendingPhone');
+        
+        if (!identifier) {
+            showMessage('No verification pending. Please request a code first.', 'error');
+            setTimeout(() => {
+                window.location.href = 'forgot-password.html';
+            }, 3000);
+        }
+        
+        function startTimer() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            
+            countdownInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('timerDisplay').textContent = '00:00';
+                    document.getElementById('verifyBtn').disabled = true;
+                    showMessage('Verification code has expired. Please request a new code.', 'error');
+                    
+                    setTimeout(() => {
+                        if (confirm('Your code has expired. Would you like to receive a new one?')) {
+                            resendCode();
+                        }
+                    }, 3000);
+                } else {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 570 && !canResend) {
+                        canResend = true;
+                        enableResendButton();
+                    }
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+            
+            const timerContainer = document.getElementById('timerContainer');
+            if (timeLeft <= 120) {
+                timerContainer.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                timerContainer.style.animation = 'pulse 1s infinite';
+            } else {
+                timerContainer.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                timerContainer.style.animation = 'none';
+            }
+        }
+        
+        function enableResendButton() {
+            const resendLink = document.getElementById('resendCode');
+            const resendSection = document.getElementById('resendSection');
+            if (resendLink) {
+                resendLink.style.color = '#667eea';
+                resendLink.style.cursor = 'pointer';
+                resendSection.classList.remove('disabled');
+            }
+        }
+        
+        function disableResendButton() {
+            const resendLink = document.getElementById('resendCode');
+            const resendSection = document.getElementById('resendSection');
+            if (resendLink) {
+                resendLink.style.color = '#999';
+                resendLink.style.cursor = 'not-allowed';
+                resendSection.classList.add('disabled');
+            }
+        }
+        
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="${type === 'error' ? 'error-message' : 'success-message'}">${message}</div>`;
+            
+            setTimeout(() => {
+                if (messageArea.firstChild) {
+                    messageArea.firstChild.style.opacity = '0';
+                    setTimeout(() => {
+                        messageArea.innerHTML = '';
+                    }, 300);
+                }
+            }, 5000);
+        }
+        
+        async function verifyCode() {
+            const codeInput = document.getElementById('code');
+            const code = codeInput.value.trim();
+            const verifyBtn = document.getElementById('verifyBtn');
+            
+            if (!code) {
+                showMessage('Please enter the verification code', 'error');
+                codeInput.focus();
+                return;
+            }
+            
+            if (!/^\d{6}$/.test(code)) {
+                showMessage('Please enter a valid 6-digit code', 'error');
+                codeInput.value = '';
+                codeInput.focus();
+                return;
+            }
+            
+            try {
+                verifyBtn.disabled = true;
+                verifyBtn.textContent = 'Verifying...';
+                
+                const response = await fetch(`${API_URL}/auth/verify-phone`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        identifier: identifier,
+                        code: code
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showMessage('Phone verified successfully! Redirecting...', 'success');
+                    
+                    if (countdownInterval) clearInterval(countdownInterval);
+                    localStorage.removeItem('resetIdentifier');
+                    sessionStorage.removeItem('pendingPhone');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    throw new Error(data.message || 'Verification failed');
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                showMessage(error.message || 'Invalid code. Please try again.', 'error');
+                codeInput.value = '';
+                codeInput.focus();
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'Verify Phone';
+            }
+        }
+        
+        async function resendCode() {
+            if (!canResend && timeLeft > 570) {
+                showMessage('Please wait before requesting another code', 'error');
+                return;
+            }
+            
+            try {
+                const resendLink = document.getElementById('resendCode');
+                resendLink.textContent = 'Sending...';
+                resendLink.style.pointerEvents = 'none';
+                
+                const response = await fetch(`${API_URL}/auth/forgot-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        identifier: identifier
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showMessage('New verification code sent! Check your phone.', 'success');
+                    
+                    timeLeft = 600;
+                    canResend = false;
+                    disableResendButton();
+                    startTimer();
+                    
+                    document.getElementById('code').value = '';
+                    document.getElementById('verifyBtn').disabled = false;
+                    
+                    setTimeout(() => {
+                        resendLink.textContent = 'Resend Code';
+                        resendLink.style.pointerEvents = 'auto';
+                    }, 2000);
+                } else {
+                    throw new Error(data.message || 'Failed to resend code');
+                }
+            } catch (error) {
+                console.error('Resend error:', error);
+                showMessage(error.message || 'Failed to resend code. Please try again.', 'error');
+                resendLink.textContent = 'Resend Code';
+                resendLink.style.pointerEvents = 'auto';
+            }
+        }
+        
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await verifyCode();
+        });
+        
+        document.getElementById('resendCode').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await resendCode();
+        });
+        
+        document.getElementById('code').focus();
+        startTimer();
+        disableResendButton();
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (timeLeft > 0 && document.getElementById('code').value) {
+                e.preventDefault();
+                e.returnValue = 'You have an ongoing verification. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        });
+        
+        window.resetTimer = function() {
+            timeLeft = 600;
+            canResend = false;
+            disableResendButton();
+            startTimer();
+            showMessage('Timer has been reset', 'success');
+        };
+    </script>
+</body>
+</html>

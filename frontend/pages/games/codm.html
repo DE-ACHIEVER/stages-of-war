@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODM Lobby - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../../public/css/main.css">
+    <link rel="stylesheet" href="../../public/css/game-lobby.css">
+    <link rel="stylesheet" href="../../public/css/ffa.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body class="light-mode">
+    <!-- ============================================ -->
+    <!-- NAVIGATION BAR - Same as index.html but without login/logout -->
+    <!-- ============================================ -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo Section -->
+            <div class="nav-logo">
+                <img src="../../image/stages.jpg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="../dashboard.html">Dashboard</a>
+                <a href="/leaderboard.html">Leaderboard</a>
+                <a href="../wallet.html">Wallet</a>
+            </div>
+
+            <!-- Right Side Actions -->
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+                
+                <!-- User Menu (NO login/logout buttons) -->
+                <div class="user-menu">
+                    <span class="balance">₦0.00</span>
+                    <div class="user-dropdown">
+                        <img src="######" alt="Profile" class="avatar">
+                        <div class="dropdown-content">
+                            <a href="/profile.html">My Profile</a>
+                            <a href="/settings.html">Settings</a>
+                            <a href="#" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- GAME HEADER - CODM Specific -->
+    <!-- ============================================ -->
+    <div class="game-header">
+        <div class="container">
+            <div class="game-title">
+                <img src="../../image/codm7.jpg" alt="CODM" class="game-icon">
+                <div>
+                    <h1>Call of Duty: Mobile</h1>
+                    <p>Compete in intense 1v1 battles or 8-player Free-For-All tournaments</p>
+                </div>
+            </div>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="label">Online</span>
+                    <span class="value" id="onlineCount">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Active Matches</span>
+                    <span class="value" id="activeMatchCount">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Total Staked</span>
+                    <span class="value" id="totalStaked">₦0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MAIN LOBBY CONTENT -->
+    <!-- ============================================ -->
+    <main class="lobby">
+        <div class="container">
+            <!-- Match Type Toggle -->
+            <div class="match-type-toggle">
+                <button class="type-btn active" data-type="1v1">⚔️ 1v1 Match</button>
+              <!-- <button class="type-btn" data-type="ffa">🎮 8-Player FFA</button> --> 
+            </div>
+
+           <div class="lobby-guide">
+    <h3>📋 How to Create CODM Lobby & Share Invite Link</h3>
+    <div class="guide-with-images">
+        <div class="guide-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <p>Open CODM → Multiplayer → Private → Create Room</p>
+            </div>
+        </div>
+        <div class="guide-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <p>Set mode: <span id="gameMode">1v1 Duel</span></p>
+            </div>
+        </div>
+        <div class="guide-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <p>Look for the <strong>"Share"</strong> icon (top right)</p>
+            </div>
+        </div>
+        <div class="guide-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <p>Tap <strong>"Copy Invite Link"</strong></p>
+            </div>
+        </div>
+        <div class="guide-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <p>Paste the link in the field above</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Replace the invite link section with this dual-input section -->
+
+<div class="join-methods-section">
+    <div class="section-header">
+        <h3>📱 How to Join Your Match</h3>
+        <p>Choose your preferred way to connect players</p>
+    </div>
+    
+    <!-- Method 1: Invite Link -->
+    <div class="method-card link-method">
+        <div class="method-header">
+            <span class="method-icon">🔗</span>
+            <span class="method-title">Option 1: Invite Link (Recommended)</span>
+            <span class="method-badge">One-Click Join</span>
+        </div>
+        
+        <div class="method-content">
+            <div class="link-input-wrapper">
+                <input 
+                    type="url" 
+                    id="inviteLink" 
+                    class="method-input invite-input"
+                    placeholder="codm://invite?lobby=5713841234"
+                   
+                >
+                
+                <button type="button" class="btn btn-small btn-outline" id="testLinkBtn">
+                    Test Link
+                </button>
+            </div>
+            
+            <div class="method-help">
+                <span class="help-icon">📋</span>
+                <span>How to get invite link:</span>
+                <ol class="help-steps">
+                    <li>Create private lobby in CODM</li>
+                    <li>Tap the <strong>"Share"</strong> button</li>
+                    <li>Select <strong>"Copy Invite Link"</strong></li>
+                    <li>Paste above</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Method 2: 10-Digit Code -->
+    <div class="method-card code-method">
+        <div class="method-header">
+            <span class="method-icon">🔢</span>
+            <span class="method-title">Option 2: 10-Digit Lobby Code</span>
+            <span class="method-badge">Manual Entry</span>
+        </div>
+        
+        <div class="method-content">
+            <div class="code-input-wrapper">
+                <input 
+                    type="text" 
+                    id="lobbyCode" 
+                    class="method-input code-input"
+                    placeholder="Enter 10-digit code from CODM"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                >
+                <button type="button" class="btn btn-small btn-outline" id="pasteCodeBtn">
+                    📋 Paste
+                </button>
+            </div>
+            
+            <div class="method-help">
+                <span class="help-icon">🎮</span>
+                <span>How to find 10-digit code:</span>
+                <ol class="help-steps">
+                    <li>Create private lobby in CODM</li>
+                    <li>Look at the top of your screen</li>
+                    <li>You'll see a <strong>10-digit number</strong></li>
+                    <li>Type or paste it above</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Live Preview of what players will see -->
+    <div class="join-preview" id="joinPreview" style="display: none;">
+        <div class="preview-header">
+            <span class="preview-icon">👥</span>
+            <span>Players will see:</span>
+        </div>
+        <div class="preview-content">
+            <div class="preview-link">
+                <span>🔗 Link:</span>
+                <code id="previewLink">-</code>
+                <button class="copy-preview" onclick="copyPreviewLink()">Copy</button>
+            </div>
+            <div class="preview-code">
+                <span>🔢 Code:</span>
+                <code id="previewCode">-</code>
+                <button class="copy-preview" onclick="copyPreviewCode()">Copy</button>
+            </div>
+        </div>
+        <small>Both methods work - players can choose how to join!</small>
+    </div>
+</div>
+
+
+<!-- Create Match Section -->
+<div class="create-match-section">
+    <div class="card">
+        <h2 id="createTitle">Create 1v1 Match</h2>
+        
+        <!-- Balance Alert -->
+        <div class="balance-alert" id="balanceAlert" style="display: none;">
+            <span class="alert-icon">⚠️</span>
+            <span>Insufficient balance. <a href="../wallet.html">Deposit now</a></span>
+        </div>
+        
+        <!-- Stake Input -->
+        <div class="stake-input-group">
+            <label for="stakeAmount">Stake Amount (₦)</label>
+            <div class="input-wrapper">
+                <span class="currency">₦</span>
+                <input type="number" id="stakeAmount" class="stake-input" min="100" max="10000" step="100" placeholder="Enter amount">
+            </div>
+            <div class="stake-presets">
+                <button class="preset-btn" data-amount="100">₦100</button>
+                <button class="preset-btn" data-amount="500">₦500</button>
+                <button class="preset-btn" data-amount="1000">₦1k</button>
+                <button class="preset-btn" data-amount="5000">₦5k</button>
+                <button class="preset-btn" data-amount="10000">₦10k</button>
+            </div>
+            
+            <!-- Prize Preview -->
+            <div class="prize-preview" id="prizePreview">
+                <div class="prize-row">
+                    <span>Total Pool:</span>
+                    <span class="amount" id="totalPool">₦0</span>
+                </div>
+                <div class="prize-row">
+                    <span>Platform Fee (5%):</span>
+                    <span class="amount" id="platformFee">₦0</span>
+                </div>
+                <div class="prize-divider"></div>
+                <div class="prize-row winner" id="winnerPrize">
+                    <span>🏆 Winner Gets:</span>
+                    <span class="amount highlight" id="winnerAmount">₦0</span>
+                </div>
+                <div class="ffa-prizes" id="ffaPrizes" style="display: none;">
+                    <div class="prize-row first">
+                        <span>🥇 1st Place (50%)</span>
+                        <span class="amount" id="firstPrize">₦0</span>
+                    </div>
+                    <div class="prize-row second">
+                        <span>🥈 2nd Place (30%)</span>
+                        <span class="amount" id="secondPrize">₦0</span>
+                    </div>
+                    <div class="prize-row third">
+                        <span>🥉 3rd Place (20%)</span>
+                        <span class="amount" id="thirdPrize">₦0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Create Match Button - ✅ FIXED -->
+        <button class="btn btn-primary btn-block btn-large" id="createMatchBtn" disabled>
+            Create Match
+        </button>
+    </div>
+</div>
+            
+            <!-- Available Matches Section -->
+            <div class="available-matches-section">
+                <div class="card">
+                    <div class="section-header">
+                        <h2>Available Matches</h2>
+                        <div class="match-filters">
+                            <select id="matchTypeFilter" class="filter-select">
+                                <option value="all">All Types</option>
+                                <option value="1v1">1v1 Only</option>
+                                <option value="ffa">FFA Only</option>
+                            </select>
+                            <select id="stakeFilter" class="filter-select">
+                                <option value="all">All Stakes</option>
+                                <option value="100">₦100</option>
+                                <option value="500">₦500</option>
+                                <option value="1000">₦1,000</option>
+                                <option value="5000">₦5,000</option>
+                                <option value="10000">₦10,000</option>
+                            </select>
+                            <button class="btn-refresh" id="refreshMatches">
+                                <span>🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="matches-grid" id="matchesGrid">
+                        <!-- Populated by JavaScript -->
+                        <div class="loading-matches">
+                            <div class="spinner"></div>
+                            <p>Finding available matches...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Your Active Matches Section -->
+            <div class="your-matches-section">
+                <div class="card">
+                    <h2>Your Active Matches</h2>
+                    <div class="matches-list" id="yourMatchesList">
+                        <!-- Populated by JavaScript -->
+                        <div class="loading-matches">Loading your matches...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER - Same as index.html -->
+    <!-- ============================================ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="../../image/stages.jpg" alt="STAGES OF WAR" class="footer-logo">
+                <p>Where legends are made through skill, strategy, and competition.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="../dashboard.html">Dashboard</a>
+                <a href="../games/codm.html">CODM</a>
+                <a href="C:\Users\DE_ACHIEVER\Desktop\STAGES_OF_WAR\frontend\pages\leaderboard.html">Leaderboard</a>
+                <a href="../wallet.html">Wallet</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="../faq.html">FAQ</a>
+                <a href="../how-it-works.html">How It Works</a>
+                <a href="../contact.html">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="../T&C.html">Terms of Service</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="../R&G.html">Responsible Gaming</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 STAGES OF WAR. All rights reserved.</p>
+        </div>
+    </footer>
+
+<!-- Add these before your other scripts -->
+<script type="module" src="../../public/js/config.js"></script>
+<script type="module" src="../../public/js/api.js"></script>
+<script type="module" src="../../public/js/auth.js"></script>
+    
+    <!-- Scripts -->
+    <script src="../../public/js/theme.js"></script>
+    <script src="../../public/js/game-lobby-unified.js"></script>
+</body>
+</html>

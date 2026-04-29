@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free For All Result - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/theme.css">
+    <link rel="stylesheet" href="../public/css/report-result.css">
+</head>
+<body class="light-mode">
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo Section -->
+            <div class="nav-logo">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../pages/dashboard.html">Dashboard</a>
+                <a href="../pages/leaderboard.html">Leaderboard</a>
+                <a href="../pages/wallet.html">Wallet</a>
+                <a href="../pages/match-history.html">History</a>
+            </div>
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-toggle">🌓</button>
+                <div class="user-menu">
+                    <span id="username" class="username">Player</span>
+                    <span id="walletBalance" class="wallet-badge">₦0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="match-header card">
+                <h2>🏆 Report Free For All Match Result</h2>
+                <div class="match-code">Match ID: <span id="matchId">Loading...</span></div>
+                <div class="match-mode" id="matchMode">🎮 8-Player Free For All</div>
+            </div>
+
+            <!-- Players Grid -->
+            <div class="players-section">
+                <h3>👥 Players</h3>
+                <div class="players-grid" id="playersGrid"></div>
+            </div>
+
+            <!--Free For All Rankings Section -->
+            <div class="rankings-section card">
+                <h3>🏆 Final Rankings</h3>
+                <div class="rankings-grid" id="rankingsGrid">
+                    <div class="ranking-row">
+                        <label>🥇 1st Place (50%)</label>
+                        <select id="firstPlace" class="form-select"></select>
+                        <input type="number" id="firstScore" placeholder="Kills" class="form-input">
+                    </div>
+                    <div class="ranking-row">
+                        <label>🥈 2nd Place (30%)</label>
+                        <select id="secondPlace" class="form-select"></select>
+                        <input type="number" id="secondScore" placeholder="Kills" class="form-input">
+                    </div>
+                    <div class="ranking-row">
+                        <label>🥉 3rd Place (20%)</label>
+                        <select id="thirdPlace" class="form-select"></select>
+                        <input type="number" id="thirdScore" placeholder="Kills" class="form-input">
+                    </div>
+                    <div class="ranking-row" id="otherPlayersContainer"></div>
+                </div>
+            </div>
+
+            <!-- Evidence Upload -->
+            <div class="evidence-section card">
+                <h3>📸 Upload Evidence</h3>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📷</div>
+                    <p>Click or drag screenshot here</p>
+                    <p class="upload-hint">Final scoreboard showing all players</p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div id="previewContainer" style="display: none;">
+                        <img id="previewImage" class="preview-image">
+                        <button type="button" id="removeImageBtn">✖ Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prize Preview -->
+            <div class="prize-section card">
+                <h3>💰 Prize Distribution</h3>
+                <div class="prize-grid">
+                    <div class="prize-item">🥇 1st: <span id="firstPrize">₦0</span></div>
+                    <div class="prize-item">🥈 2nd: <span id="secondPrize">₦0</span></div>
+                    <div class="prize-item">🥉 3rd: <span id="thirdPrize">₦0</span></div>
+                </div>
+            </div>
+
+            <!-- <div class="action-buttons">
+                <button class="btn-secondary" onclick="window.location.href='../page/dashboard.html'">Cancel</button>
+                <button class="btn-primary" id="submitResultBtn">Submit Result</button>
+            </div> -->
+        </div>
+    </main>
+
+    <!-- <script src="../public/js/api.js"></script>
+   <script src="../public/js/report-result-ffa.js"></script> -->
+</body>
+</html>

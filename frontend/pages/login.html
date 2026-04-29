@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STAGES OF WAR</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="auth-logo">
+                <h1>Welcome Back</h1>
+                <p>Login to continue your journey</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="identifier">Email, Phone or Username</label>
+                    <input 
+                        type="text" 
+                        id="identifier" 
+                        name="identifier" 
+                        placeholder="e.g., DE_ACHIEVER or 08109800941"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                     <div class="password-wrapper">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <span class="password-toggle" onclick="togglePassword('password')">👁️</span>
+                </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="../pages/forgot password.html" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <div class="error-message" id="loginError" style="display: none;"></div>
+
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="../pages/register.html">Sign Up</a></p>
+            </div>
+
+            <div class="auth-divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-login">
+                <button class="btn btn-outline social-btn" onclick="window.location.href='/login-demo.html'">
+                    <span>🎮</span>
+                    Demo Account
+                </button>
+            </div>
+        </div>
+
+        <div class="auth-image">
+            <img src="../image/stages.jpg" alt="Gaming Setup">
+            <div class="auth-quote">
+                "Your journey to legend status starts here."
+            </div>
+        </div>
+    </div>
+
+<script>console.log('API_URL:', API_URL);</script>
+    <script src="../public/js/api.js"></script>
+    <script src="../public/js/main.js"></script>
+     <script src="../public/js/config.js"></script>
+</body> 
+</html>

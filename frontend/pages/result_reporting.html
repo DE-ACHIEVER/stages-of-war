@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stages of War - Report Match Result</title>
+    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="../public/css/theme.css">
+    <link rel="stylesheet" href="../public/css/report-result.css">
+</head>
+<body>
+    <!-- Navbar -->
+     <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo Section -->
+            <div class="nav-logo">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../pages/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../pages/leaderboard.html" class="nav-link">Leaderboard</a>
+                <a href="../pages/wallet.html" class="nav-link">Wallet</a>
+                <a href="../pages/match-history.html" class="nav-link">History</a>
+                <button class="mobile-menu-btn">☰</button>
+            </div>
+            
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+                <div class="user-menu">
+                    <span id="username" class="username">Player</span>
+                    <span id="walletBalance" class="wallet-badge">₦0</span>
+                    <button id="logoutBtn" class="logout-btn">🚪</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Match Header -->
+            <div class="match-header card">
+                <div class="match-header-content">
+                    <div>
+                        <h2>🏆 Report Match Result</h2>
+                        <div class="match-code">
+                            Match ID: <span id="matchId">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="match-status-container">
+                        <span class="match-status status-active">● ACTIVE MATCH</span>
+                        <span class="match-mode" id="matchMode"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players Grid -->
+            <div class="players-section">
+                <h3 class="section-title">👥 Players</h3>
+                <div class="players-grid" id="playersGrid">
+                    <!-- Player cards will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Score Input Section -->
+<div class="score-section card">
+    <h3 class="section-title">📊 Final Score</h3>
+    <div class="score-inputs">
+        <div class="score-input-group">
+            <label>Final Score</label>
+            <input type="text" id="finalScore" placeholder="e.g., 20-15" class="form-input">
+        </div>
+        <div class="winner-selection">
+            <label>Winner</label>
+            <select id="winnerId" class="form-select">
+                <option value="">Loading players...</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+            <!-- Evidence Upload Section -->
+            <div class="evidence-section card">
+                <h3 class="section-title">📸 Upload Evidence</h3>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📷</div>
+                    <p>Click or drag screenshot here</p>
+                    <p class="upload-hint">Accepted formats: PNG, JPG, JPEG (Max 5MB)</p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div id="previewContainer" style="display: none;">
+                        <img id="previewImage" class="preview-image">
+                        <button type="button" id="removeImageBtn" class="remove-image-btn">✖ Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Match Details Card -->
+            <div class="match-details card">
+                <h3 class="section-title">💰 Match Details</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Stake Amount:</span>
+                        <span class="detail-value" id="stakeAmount">₦0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Platform Fee (5%):</span>
+                        <span class="detail-value" id="platformFee">₦0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Winner Gets:</span>
+                        <span class="detail-value highlight" id="winnerPayout">₦0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Time Remaining:</span>
+                        <span class="detail-value timer" id="timer">30:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-secondary" onclick="window.location.href='dashboard.html'">
+                    Cancel
+                </button>
+                <button class="btn-primary" id="submitResultBtn" disabled>
+                    Submit Result
+                </button>
+            </div>
+        </div>
+    </main>
+
+ <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="../image/stages.jpg" alt="STAGES OF WAR" class="footer-logo">
+                <p>Where legends are made through skill, strategy, and competition.</p>
+            </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="../pages/about.html">About Us</a>
+                    <a href="../pages/faq.html">FAQ</a>
+                    <a href="../pages/terms.html">Terms & Conditions</a>
+                    <a href="../pages/privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="mailto:support@stagesofwar.com">support@stagesofwar.com</a>
+                    <a href="tel:+234800782437">+234 800 STAGES</a>
+                    <div class="social-links">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                        <a href="#">💬</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Stages of War. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.add('light-mode');
+        body.classList.remove('dark-mode');
+    }
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+</script>
+
+    <script src="../public/js/api.js"></script>
+    <script src="../public/js/theme.js"></script>
+    <script src="../public/js/report-result.js"></script>
+</body>
+</html>

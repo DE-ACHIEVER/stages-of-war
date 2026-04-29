@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - STAGES OF WAR</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/wallet.css">
+</head>
+<body class="light-mode">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/logo.svg" alt="STAGES OF WAR" class="logo">
+                <span class="logo-text">STAGES OF WAR</span>
+            </div>
+            <div class="nav-links">
+                <a href="/dashboard.html">Dashboard</a>
+                <a href="/games.html">Games</a>
+                <a href="/wallet.html" class="active">Wallet</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">🌓</button>
+                <div class="user-menu">
+                    <span class="balance">₦0.00</span>
+                    <img src="/images/default-avatar.png" alt="Profile" class="avatar">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="wallet-container">
+        <div class="container">
+            <!-- Wallet Header -->
+            <div class="wallet-header">
+                <h1>Your Wallet</h1>
+                <p>Manage your funds, deposits, and withdrawals</p>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+                <div class="balance-info">
+                    <span class="balance-label">Available Balance</span>
+                    <span class="balance-amount" id="balanceAmount">₦0.00</span>
+                </div>
+                <div class="balance-actions">
+                    <button class="btn btn-primary" id="depositBtn">Deposit</button>
+                    <button class="btn btn-outline" id="withdrawBtn">Withdraw</button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="wallet-stats">
+                <div class="stat-card">
+                    <span class="stat-label">Total Deposits</span>
+                    <span class="stat-value" id="totalDeposits">₦0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Total Withdrawals</span>
+                    <span class="stat-value" id="totalWithdrawals">₦0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Total Winnings</span>
+                    <span class="stat-value" id="totalWinnings">₦0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Matches Played</span>
+                    <span class="stat-value" id="matchesPlayed">0</span>
+                </div>
+            </div>
+
+            <!-- Deposit/Withdraw Forms (Hidden by default) -->
+            <div class="transaction-forms" id="transactionForms" style="display: none;">
+                <!-- Deposit Form -->
+                <div class="form-card" id="depositForm">
+                    <h2>Deposit Funds</h2>
+                    <p>Add money to your wallet via Paystack</p>
+                    
+                    <div class="amount-presets">
+                        <button class="preset-btn" data-amount="1000">₦1,000</button>
+                        <button class="preset-btn" data-amount="5000">₦5,000</button>
+                        <button class="preset-btn" data-amount="10000">₦10,000</button>
+                        <button class="preset-btn" data-amount="20000">₦20,000</button>
+                        <button class="preset-btn" data-amount="50000">₦50,000</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="depositAmount">Amount (₦)</label>
+                        <input 
+                            type="number" 
+                            id="depositAmount" 
+                            class="form-input"
+                            min="100" 
+                            max="50000" 
+                            placeholder="Enter amount"
+                        >
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>Payment Methods</h3>
+                        <div class="method-grid">
+                            <div class="method-card active" data-method="card">
+                                <span class="method-icon">💳</span>
+                                <span>Card</span>
+                            </div>
+                            <div class="method-card" data-method="bank">
+                                <span class="method-icon">🏦</span>
+                                <span>Bank Transfer</span>
+                            </div>
+                            <div class="method-card" data-method="ussd">
+                                <span class="method-icon">📱</span>
+                                <span>USSD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="processDepositBtn">
+                        Proceed to Payment
+                    </button>
+                    <button class="btn btn-text" id="cancelDepositBtn">Cancel</button>
+                </div>
+
+                <!-- Withdraw Form -->
+                <div class="form-card" id="withdrawForm" style="display: none;">
+                    <h2>Withdraw Funds</h2>
+                    <p>Transfer money to your bank account</p>
+
+                    <div class="form-group">
+                        <label for="withdrawAmount">Amount (₦)</label>
+                        <input 
+                            type="number" 
+                            id="withdrawAmount" 
+                            class="form-input"
+                            min="1000" 
+                            placeholder="Enter amount"
+                        >
+                        <small>Minimum withdrawal: ₦1,000</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankSelect">Select Bank</label>
+                        <select id="bankSelect" class="form-select">
+                            <option value="">Loading banks...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountNumber">Account Number</label>
+                        <input 
+                            type="text" 
+                            id="accountNumber" 
+                            class="form-input"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="Enter 10-digit account number"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountName">Account Name</label>
+                        <input 
+                            type="text" 
+                            id="accountName" 
+                            class="form-input"
+                            placeholder="Account holder name"
+                            readonly
+                        >
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="processWithdrawBtn">
+                        Withdraw Funds
+                    </button>
+                    <button class="btn btn-text" id="cancelWithdrawBtn">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="transaction-history">
+                <div class="section-header">
+                    <h2>Transaction History</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="deposit">Deposits</button>
+                        <button class="filter-tab" data-filter="withdraw">Withdrawals</button>
+                        <button class="filter-tab" data-filter="winning">Winnings</button>
+                    </div>
+                </div>
+
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading">Loading transactions...</div>
+                </div>
+
+                <div class="pagination" id="transactionPagination">
+                    <!-- Pagination buttons -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Transaction Template -->
+    <template id="transactionItemTemplate">
+        <div class="transaction-item">
+            <div class="transaction-icon"></div>
+            <div class="transaction-details">
+                <div class="transaction-title"></div>
+                <div class="transaction-meta"></div>
+            </div>
+            <div class="transaction-amount"></div>
+            <div class="transaction-status"></div>
+        </div>
+    </template>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/wallet.js"></script>
+</body>
+</html>
